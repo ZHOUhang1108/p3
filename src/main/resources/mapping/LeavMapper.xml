@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="p3.mapper.LeavMapper">
+    <insert id="addLeav">
+        <selectKey order="AFTER" keyProperty="id" resultType="int">
+            select last_insert_id()
+        </selectKey>
+        insert leav(teaId,startTime,endTime,reason,now)
+        values (#{teaId},#{startTime},#{endTime},#{reason},#{now})
+    </insert>
+    <select id="getTeaRecord" resultType="p3.vo.TeaLeavRecord">
+        select *
+        from leav l, teacher t
+        where
+        l.teaId=t.teacherId
+        and l.teaId=#{teaId}
+    </select>
+</mapper>

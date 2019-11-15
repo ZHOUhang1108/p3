@@ -1,0 +1,116 @@
+
+    <table class="easyui-datagrid" id="teacher-dg"
+           data-options=" toolbar:'#tb',url:'teacher/page',pagination:true,fitColumns:true,singleSelect:false,fit:true">
+        <thead>
+        <tr>
+            <th data-options="field:'lch',checkbox:true,width:100"></th>
+            <th data-options="field:'teacherId',width:100">编号</th>
+            <th data-options="field:'trealName',width:100">姓名</th>
+            <th data-options="field:'age',width:100">年龄</th>
+            <th data-options="field:'sex',width:100">性别</th>
+            <th data-options="field:'subjectName',width:100">科目</th>
+            <th data-options="field:'school',width:100">学校</th>
+            <th data-options="field:'profession',width:100">专业</th>
+            <th data-options="field:'status',width:100,formatter:status">状态</th>
+            <th data-options="field:'teacherImg',width:100">照片</th>
+            <th data-options="field:'roleId',width:100,formatter:role">职位</th>
+        </tr>
+        </thead>
+
+        <div id="tb">
+            <b>搜索信息：</b><input type="text" id="idtest" name="test"/>
+            <input type="button" class="easyui-linkbutton"  onclick="check()" value="搜索"/>
+            <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'" onclick="counsellorAdd()">新增</a>
+            <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit'" onclick="counsellorUpdate()">修改</a>
+            <a href="#" class="easyui-linkbutton"  data-options="iconCls:'icon-cut'" onclick="counsellorDelete()">删除</a>
+        </div>
+        <!--<div>
+&lt;!&ndash;            <form id="ch" method="post">&ndash;&gt;
+                信息查询者名字：<input type="text" id="idtest" name="test"/>
+                <input type="button" class="easyui-linkbutton"  onclick="check()" value="搜索"/>
+&lt;!&ndash;            </form>&ndash;&gt;
+        </div>-->
+
+
+        <script>
+            function status(v,r,i) {
+                if (v==1){
+                    return "正常";
+                } else if (v==2){
+                    return "请假";
+                } else {
+                    return "离职";
+                }
+            }
+            function role(v,r,i) {
+                if (v==2){
+                    return "讲师";
+                } else if(v==3){
+                    return "导师";
+                }
+            }
+            function check() {
+                $("#teacher-dg").datagrid('load',{
+                    test: $("#idtest").val()
+                })
+                // console.log($("#ch"))
+                // var val = $("#id").val();
+                // var page = $('#teacher-dg').datagrid('getPager').data("pagination").options.pageNumber;
+                // var rows = $('#teacher-dg').datagrid('getPager').data("pagination").options.pageSize;
+                // $.ajax({
+                //     type:"post",
+                //     url:"teacher/check",
+                //     dataType:"json",
+                //     data:{"test":val,
+                //             "page":page,
+                //         "rows":rows
+                //     },
+                //     success:function () {
+                //         $.messager.alert("提示","成功了",'info')
+                //         $.messager.progress('close');
+                //     },
+                //     error:function (error) {
+                //         console.log(error)
+                //         $.messager.progress('close');
+                //     }
+                // })
+
+
+            }
+
+            function counsellorDelete() {
+
+                var teachers=$("#teacher-dg").datagrid("getSelections")
+                var ids=[];
+                for(i=0;i<teachers.length;i++){
+                    console.log(teachers[i])
+                    ids.push(teachers[i].teacherId)
+                }
+                console.log(ids)
+                $.ajax({
+                    type:"delete",
+                    url:"/teachers",
+                    contentType:"application/json",
+                    data:JSON.stringify(ids),
+                    success:function () {
+                        alert("成功")
+                    },
+                    error:function (error) {
+                        alert(error)
+                    }
+                })
+            }
+            function counsellorAdd() {
+                $(".tree-title:contains('辅导员信息增加')").parent().click();
+            }
+            function counsellorUpdate() {
+                $('#kk').form('clear');
+                var teacher = $('#teacher-dg').datagrid('getSelected');
+                if (!teacher) {
+                    $.messager.alert('信息提示', '请选择一行！', 'info');
+                    return;
+                }
+                $(".tree-title:contains('辅导员信息修改')").parent().click();
+            }
+        </script>
+    </table>

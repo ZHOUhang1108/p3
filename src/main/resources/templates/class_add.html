@@ -1,0 +1,141 @@
+<div>
+    <form id="ll" method="post">
+        课程名称：<input type="text" name="lessonName"/><br/>
+        老师姓名：<input type="text" name="trealName"/><br/>
+        年级：<input type="text" name="gradeName"/><br/>
+        科目：<input type="text" name="subjectName"/><br/>
+        开始时间：<input type="text" name="startTime"/>格式为：“YYYY-MM-DD”<br/>
+        节课时间：<input type="text" name="closeTime"/>格式为：“YYYY-MM-DD”<br/>
+        课程价格：<input type="text" name="price"/><br/>
+        课程简介：<input type="text" name="lessonDetail"/><br/>
+        学生数量：<input type="text" name="studentNum"/><br/>
+        <input type="button" class="easyui-linkbutton" data-options="iconCls:'icon-save'" onclick="addLesson()" value="添加"/>
+    </form>
+</div>
+<script type="text/javascript">
+
+    function addLesson(){
+        console.log("dddd")
+
+        $.messager.progress();	// 显示进度条
+
+        $.ajax({
+            type:"post",
+            url:"lesson",
+            dataType:"json",
+            data:$("#ll").serialize(),
+            success:function (data) {
+                $.messager.alert("提示","成功了",'info')
+                $.messager.progress('close');
+            },
+            error:function (error) {
+                console.log(error)
+                $.messager.progress('close');
+            }
+        })
+    }
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
+<table class="easyui-datagrid"
+       data-options="url:'counsellor/add',fitColumns:true,singleSelect:true,fit:true">
+    <thead>
+    </thead>
+    <br><br>
+    <select id="class1" class="easyui-combobox" name="dept" style="width:100px;">
+        <option value="aa">编号</option>
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+    </select>
+    <select id="class2" class="easyui-combobox" name="dept" style="width:100px;">
+        <option value="aa">姓名</option>
+        <option>张三</option>
+        <option>李四</option>
+        <option>王五</option>
+        <option>赵六</option>
+    </select>
+    <select id="class3" class="easyui-combobox" name="dept" style="width:100px;">
+        <option value="aa">年龄</option>
+        <option>12</option>
+        <option>13</option>
+        <option>14</option>
+        <option>15</option>
+        <option>16</option>
+        <option>17</option>
+        <option>18</option>
+        <option>19</option>
+    </select>
+    <select id="class4" class="easyui-combobox" name="dept" style="width:100px;">
+        <option value="aa">性别</option>
+        <option>男</option>
+        <option>女</option>
+        <option>泰国</option>
+    </select>
+    <select id="class5" class="easyui-combobox" name="dept" style="width:100px;">
+        <option value="aa">科目</option>
+        <option>日语</option>
+        <option>俄语</option>
+        <option>法语</option>
+        <option>汉语</option>
+        <option>梵语</option>
+        <option>德语</option>
+        <option>微积分</option>
+        <option>光电效应</option>
+    </select>
+    <select id="class6" class="easyui-combobox" name="dept" style="width:100px;">
+        <option value="aa">学校</option>
+        <option>榆林学院</option>
+        <option>宝鸡文理学院</option>
+        <option>渭南学院</option>
+        <option>西安交通大学城市学院</option>
+        <option>财经学院</option>
+        <option>商洛学院</option>
+    </select>
+    <select id="class7" class="easyui-combobox" name="dept" style="width:100px;">
+        <option value="aa">专业</option>
+        <option>体育</option>
+        <option>语文</option>
+        <option>美术</option>
+        <option>音乐</option>
+        <option>Java</option>
+        <option>HTML5</option>
+    </select>
+    <select id="class8" class="easyui-combobox" name="dept" style="width:100px;">
+        <option value="aa">身份</option>
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+    </select>
+</table>-->

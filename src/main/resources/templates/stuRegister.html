@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="js/jquery-3.3.1.js" charset="utf-8"></script>
+    <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+</head>
+<body background="images/stuRegister.jpg" style="background-repeat: no-repeat;background-size: cover;">
+<h1>这里是学生注册页</h1>
+<div style="position: relative; left: 550px; top: 150px; background-color:rgba(255,255,240,0.3) ;width: 400px;height: 300px;box-shadow:0px 0px 1px #1b1b1b;">
+    <div style="text-align: right">
+        <div style="position: relative;top: 30px;right: 55px;">
+            姓名：<input class="span3" type="text" id="1" ><br>
+            年龄：<input class="span3" type="text" id="2" ><br>
+            性别：<select class="span3" type="checkbox" id="3" >
+                <option>男</option>
+                <option>女</option>
+                </select><br>
+            登录帐号：<input class="span3" type="text" id="4" ><br>
+            登录密码：<input class="span3" type="text" id="5" ><br>
+
+            <input type="button" value="点击提交" id="0" class="btn-success">
+        </div>
+    </div>
+    <div id="ee" >该用户名已存在，请重新输入</div>
+    <div id="ss" style="display: none">您填写的信息格式有误</div>
+</div>
+</body>
+<script type="text/javascript">
+    var ee=document.getElementById("ee");
+
+    ee.style.display='none';
+    $(function(){
+       $("#0").on("click",function(){
+           var name=document.getElementById("1").value;/*js原生取法*/
+           var age=$("#2").val();/*jquery取法*/
+           var sex=$("#3").val();
+           var sName=$("#4").val();
+           var sPassword=$("#5").val();
+           console.log(sex+"----"+name+"----"+age)
+           $.ajax({
+               url:"/stuReg",
+               data:{
+                   srealName:name,
+                   age:age,
+                   sex:sex,
+                   sName:sName,
+                   sPassword:sPassword
+               },
+               dataType:'json',
+               type:'post',
+               success:function(response){
+                   if(response.code==200){
+                       location.href='/login';
+                   }else {
+                       ee.style.display='block';
+                       console.log("??????")
+                   }
+               },
+               error:function(response){
+                   document.getElementById("ee").style.display='block';
+               }
+           })
+
+       });
+    });
+
+</script>
+</html>

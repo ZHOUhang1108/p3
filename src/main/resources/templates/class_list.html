@@ -1,0 +1,70 @@
+
+<table class="easyui-datagrid" id="lesson_dg"
+       data-options=" toolbar:'#tb',url:'lesson/page',pagination:true,fitColumns:true,singleSelect:false,fit:true">
+    <thead>
+    <tr>
+        <th data-options="field:'lch',checkbox:true,width:100"></th>
+        <th data-options="field:'lessonId',width:100">课程编号</th>
+        <th data-options="field:'lessonName',width:100">课程名称</th>
+        <th data-options="field:'trealName',width:100">老师姓名</th>
+        <th data-options="field:'gradeName',width:100">年级</th>
+        <th data-options="field:'subjectName',width:100">科目</th>
+        <th data-options="field:'startTime',width:100,formatter:time">开始时间</th>
+        <th data-options="field:'closeTime',width:100,formatter:time">关闭时间</th>
+        <th data-options="field:'price',width:100">课程价格</th>
+        <th data-options="field:'lessonDetail',width:100">课程详情</th>
+        <th data-options="field:'studentNum',width:100">学生数量</th>
+    </tr>
+    </thead>
+    <div id="tb">
+        <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'" onclick="counsellorAdd()">新增</a>
+        <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit'" onclick="counsellorUpdate()">修改</a>
+        <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-cut'" onclick="lessonDelete()">删除</a>
+    </div>
+
+
+
+    <script src="js/moment/moment.min.js" type="text/javascript"></script>
+    <script src="js/moment/moment-with-locales.js" type="text/javascript"></script>
+    <script>
+
+
+        function time(v,r,i) {
+            var time=moment(v).format('YYYY-MM-DD');
+            return time;
+        }
+
+        function counsellorUpdate() {
+            $.messager.confirm('确定要修改吗？',function (r) {
+                if (r) {
+                    $.messager.alert('弟弟你确定要修改吗')
+                }
+            })
+        }
+        function lessonDelete() {
+
+            var lessons = $("#lesson_dg").datagrid("getSelections")
+            var ids = [];
+            for (i = 0; i < lessons.length; i++) {
+                console.log(lessons[i])
+                ids.push(lessons[i].lessonId)
+            }
+            console.log(ids)
+            $.ajax({
+                type: "delete",
+                url: "/lessons",
+                contentType: "application/json",
+                data: JSON.stringify(ids),
+                success: function () {
+                    alert("成功")
+                },
+                error: function (error) {
+                    alert(error)
+                }
+            })
+        }
+        function counsellorAdd() {
+            $(".tree-title:contains('课程增加')").parent().click();
+        }
+    </script>
+</table>

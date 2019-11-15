@@ -1,0 +1,56 @@
+<div id="teacher-add">
+    <form id="kk" method="put">
+        <input type="hidden" name="teacherId" value="teacherId"/><br>
+        姓名：<input type="text" name="trealName"/><br/>
+        年龄：<input type="text" name="age"/><br/>
+        性别：<input type="text" name="sex"/><br/>
+        科目：<input type="text" name="subjectName"/><br/>
+        毕业学校：<input type="text" name="school"/><br/>
+        专业：<input type="text" name="profession"/><br/>
+        状态：<select id="class8" class="easyui-combobox" name="status" style="width:100px;">
+        <option value="1">正常</option>
+        <option value="2">请假</option>
+        <option value="3">离职</option>
+    </select><br/>
+        简介：<input type="text" name="produce"/><br/>
+        照片：<input class="easyui-filebox" name="teacherImg" style="width:300px"><br/>
+        职位：<select  class="easyui-combobox" name="roleId" style="width:100px;">
+        <option value="2">讲师</option>
+        <option value="3">导师</option>
+    </select><br/>
+        <input type="button" class="easyui-linkbutton" data-options="iconCls:'icon-save'" onclick="update()" value="修改"/>
+    </form>
+</div>
+<script>
+
+
+        var teacher = $('#teacher-dg').datagrid('getSelected');
+        $("#kk [name='teacherId']").val(teacher.teacherId);
+        $("#kk [name='trealName']").val(teacher.trealName);
+        $("#kk [name='age']").val(teacher.age);
+        $("#kk [name='sex']").val(teacher.sex);
+        $("#kk [name='subjectName']").val(teacher.subjectName);
+        $("#kk [name='school']").val(teacher.school);
+        $("#kk [name='profession']").val(teacher.profession);
+        $("#kk [name='status']").val(teacher.status);
+        $("#kk [name='produce']").val(teacher.produce);
+        $("#kk [name='teacherImg']").val(teacher.teacherImg);
+        $("#kk [name='roleId']").val(teacher.roleId);
+
+        $(".tree-title:contains('辅导员信息修改')").parent().click();
+        function update() {
+            $.ajax({
+                type:"put",
+                url: "/teacher/update",
+                dataType:"json",
+                data: $("#kk").serialize(),
+                success:function () {
+                    alert("成功")
+                },
+                error:function () {
+                    alert("成功")
+                }
+            });
+        }
+
+</script>

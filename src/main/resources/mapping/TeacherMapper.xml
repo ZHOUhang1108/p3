@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="p3.mapper.TeacherMapper">
+    <select id="selectById" resultType="teacher">
+        select *
+        from teacher
+        where
+        teacherId=#{teacherId}
+    </select>
+
+    <select id="selectByloginName" resultType="teacher">
+        select *
+        from teacher
+        where
+        tName=#{loginName}
+    </select>
+
+
+
+
+    <resultMap id="teacherMap" type="teacher">
+        <id column="teacherId" property="teacherId"></id>
+        <result property="tName" column="tName"></result>
+        <result property="tPassword" column="tPassword"></result>
+        <result property="trealName" column="trealName"></result>
+        <result property="age" column="age"></result>
+        <result property="sex" column="sex"></result>
+        <result property="subjectName" column="subjectName"></result>
+        <result property="school" column="school"></result>
+        <result property="profession" column="profession"></result>
+        <result property="status" column="status"></result>
+        <result property="produce" column="produce"></result>
+        <result property="teacherImg" column="teacherImg"></result>
+        <result property="roleId" column="roleId"></result>
+    </resultMap>
+
+    <!--通过用户名查询信息-->
+    <select id="selectByName" parameterType="teacher" resultMap="teacherMap">
+        select teacherId,tName,tPassword,trealName,age,sex,subjectName,school,profession,status,produce,teacherImg,roleId
+         from teacher
+        where tName=#{tName}
+    </select>
+    <!--通过Id查询信息-->
+<!--    <select id="selectById" parameterType="teacher" resultMap="teacherMap">
+        select teacherId,tName,tPassword,trealName,age,sex,subjectName,school,profession,status,produce,teacherImg,roleId
+         from teacher
+        where teacherId=#{teacherId}
+    </select>-->
+    <!--注册讲师-->
+    <insert id="addTeacher" parameterType="teacher">
+        insert into teacher(tName,tPassword)
+        values(#{tName},#{tPassword})
+    </insert>
+    <!--增加讲师-->
+    <insert id="insertTeacher" parameterType="teacher">
+        insert into teacher(tName,tPassword,trealName,age,sex,subjectName,school,profession,status,produce,teacherImg,roleId)
+        values(#{tName},#{tPassword},#{trealName},#{age},#{sex},#{subjectName},#{school},#{profession},#{status},#{produce},#{teacherImg},#{roleId})
+    </insert>
+    <!--通过id动态更新讲师信息-->
+    <update id="updateTeacher" parameterType="teacher">
+        update teacher
+        <set>
+            <if test="tName!=null">
+                tName=#{tName},
+            </if>
+
+            <if test="tPassword!=null">
+                tPassword=#{tPassword},
+            </if>
+
+            <if test="trealName!=null">
+                trealName=#{trealName},
+            </if>
+
+            <if test="age!=null">
+                age=#{age},
+            </if>
+
+            <if test="sex!=null">
+                sex=#{sex},
+            </if>
+
+            <if test="subjectName!=null">
+                subjectName=#{subjectName},
+            </if>
+            <if test="school!=null">
+                school=#{school},
+            </if>
+            <if test="profession!=null">
+                profession=#{profession},
+            </if>
+            <if test="status!=null">
+                status=#{status},
+            </if>
+            <if test="produce!=null">
+                produce=#{produce},
+            </if>
+            <if test="teacherImg!=null">
+                teacherImg=#{teacherImg},
+            </if>
+            <if test="roleId!=null">
+                roleId=#{roleId},
+            </if>
+        </set>
+        where teacherId=#{teacherId}
+    </update>
+
+    <!--通过id删除讲师信息-->
+    <delete id="deleteTeacher" parameterType="teacher">
+        delete from teacher where teacherId=#{teacherId}
+    </delete>
+
+    <!--//查询信息-->
+    <select id="selectAll" resultMap="teacherMap">
+        select teacherId,tName,tPassword,trealName,age,sex,subjectName,school,profession,status,produce,teacherImg,roleId
+        from teacher
+    </select>
+
+    <!--//模糊信息-->
+    <select id="selectByParms" resultMap="teacherMap">
+        <if test="TName!=null">
+            <bind name="teacherId" value="TName"/>
+        </if>
+        <if test="TName!=null">
+            <bind name="tName" value="'%'+TName+'%'"/>
+        </if>
+
+        <if test="TName!=null">
+            <bind name="tPassword" value="'%'+TName+'%'"/>
+        </if>
+
+        <if test="TName!=null">
+            <bind name="trealName" value="'%'+TName+'%'"/>
+        </if>
+
+        <if test="TName!=null">
+            <bind name="age" value="'%'+TName+'%'"/>
+        </if>
+
+        <if test="TName!=null">
+            <bind name="sex" value="'%'+TName+'%'"/>
+        </if>
+
+        <if test="TName!=null">
+            <bind name="subjectName" value="'%'+TName+'%'"/>
+        </if>
+        <if test="TName!=null">
+            <bind name="school" value="'%'+TName+'%'"/>
+        </if>
+        <if test="TName!=null">
+            <bind name="profession" value="'%'+TName+'%'"/>
+        </if>
+        <if test="TName!=null">
+            <bind name="status" value="'%'+TName+'%'"/>
+        </if>
+        <if test="TName!=null">
+            <bind name="produce" value="'%'+TName+'%'"/>
+        </if>
+        <if test="TName!=null">
+            <bind name="teacherImg" value="'%'+TName+'%'"/>
+        </if>
+        <if test="TName!=null">
+            <bind name="roleId" value="'%'+TName+'%'"/>
+        </if>
+        select teacherId,tName,tPassword,trealName,age,sex,subjectName,school,profession,status,produce,roleId
+        from teacher
+        <where>
+            <trim suffixOverrides="or">
+                <if test="teacherId!=null">
+                    teacherId like #{teacherId} or
+                </if>
+                <if test="tName!=null">
+                    tName like #{tName} or
+                </if>
+
+                <if test="tPassword!=null">
+                    tPassword like #{tPassword} or
+                </if>
+
+                <if test="trealName!=null">
+                    trealName like #{trealName} or
+                </if>
+
+                <if test="age!=null">
+                    age like #{age} or
+                </if>
+
+                <if test="sex!=null">
+                    sex like #{sex} or
+                </if>
+
+                <if test="subjectName!=null">
+                    subjectName like #{subjectName} or
+                </if>
+                <if test="school!=null">
+                    school like #{school} or
+                </if>
+                <if test="profession!=null">
+                    profession like #{profession} or
+                </if>
+                <if test="status!=null">
+                    status like #{status} or
+                </if>
+                <if test="produce!=null">
+                    produce like #{produce} or
+                </if>
+                <if test="teacherImg!=null">
+                    teacherImg like #{teacherImg} or
+                </if>
+                <if test="roleId!=null">
+                    roleId like #{roleId}
+                </if>
+            </trim>
+        </where>
+    </select>
+
+    <!--批量删除讲师信息-->
+    <delete id="deleteList">
+        delete from teacher where teacherId in
+        <foreach collection="list" open="(" separator="," close=")" item="ids">
+            #{ids}
+        </foreach>
+    </delete>
+
+
+    <insert id="addTea">
+        <selectKey order="AFTER" keyProperty="teacherId" resultType="int">
+            select last_insert_id()
+        </selectKey>
+        insert teacher(tName,tPassword,trealName,age,sex,temail)
+        values (#{tName},#{tPassword},#{trealName},#{age},#{sex},#{temail})
+    </insert>
+</mapper>

@@ -1,0 +1,22 @@
+server:
+  port: 8080
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://localhost:3306/study?characterEncoding=utf-8&serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password:
+  mail:
+    default-encoding: utf-8
+    host: smtp.qq.com
+    username: 1227855866@qq.com
+    password: vbnilrevpswhbaef
+mybatis:
+#  声明mybatis映射器文件的位置
+  mapper-locations: classpath:mapping/*.xml
+#  声明映射器中引用的结果集对象类所在位置
+  type-aliases-package: p3.pojo
+pagehelper:
+  helper-dialect: mysql
+

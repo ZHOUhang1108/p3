@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="js/jquery-3.3.1.js" charset="utf-8"></script>
+    <script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+    <style type="text/css">
+        .btn-circle {
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            padding: 6px 0;
+            font-size: 12px;
+            line-height: 1.428571429;
+            border-radius: 15px;
+        }
+    </style>
+</head>
+<body background="images/teaRegister.jpg" style="background-repeat: no-repeat;background-size: cover;">
+<div style="position: relative; left: 550px; top: 150px; background-color:rgba(255,255,240,0.3) ;width: 400px;height: 370px;box-shadow:0px 0px 1px #1b1b1b;">
+    <div style="text-align: right">
+        <div style="position: relative;top: 30px;right: 55px;">
+            姓名：<input class="span3" type="text" id="1" ><br>
+            年龄：<input class="span3" type="text" id="2" ><br>
+            性别：
+            <select  class="span3" type="checkbox" id="3" >
+                <option>男</option>
+                <option>女</option>
+            </select><br>
+            登录帐号：<input class="span3" type="text" id="4" ><br>
+            登录密码：<input class="span3" type="text" id="5" ><br>
+            <div class="span5" >
+                邮箱帐号：<input id="email" type="email" style="width: 176px"><button id="feiji" style="position: relative; top: -5px; " class="btn btn-success btn-circle " type="button" value="">✈</button>
+            </div>
+            <div class="span5" style="display: block">
+            验证码：<input id="ccc" type="text" placeholder="邮箱验证码">
+            </div>
+            <button type="button" value="" id="0" class="btn btn-success">点击提交</button>
+        </div>
+    </div>
+    <div id="ee" >该用户名已存在，请重新输入</div>
+    <div id="ss" style="display: none">您填写的信息格式有误</div>
+</div>
+</body>
+<script type="text/javascript">
+    var ee=document.getElementById("ee");
+    ee.style.display='none';
+    var cc=null;
+    $(function(){
+        $("#feiji").on("click",function(){
+            var name=document.getElementById("1").value;/*js原生取法*/
+            var age=$("#2").val();/*jquery取法*/
+            var sex=$("#3").val();
+            var tName=$("#4").val();
+            var tPassword=$("#5").val();
+            var email=$("#email").val();
+            console.log(sex+"----"+name+"----"+age)
+            $.ajax({
+                url:"/teaReg",
+                data:{
+                    trealName:name,
+                    age:age,
+                    sex:sex,
+                    tName:tName,
+                    tPassword:tPassword,
+                    temail:email
+                },
+                dataType:'json',
+                type:'post',
+                success:function(response){
+                    if(response.code==200){
+                        cc=response.result;
+                        console.log("cc==="+cc)
+                        /*location.href='/login';*/
+                    }else {
+                        ee.style.display='block';
+                        console.log("??????")
+                    }
+                },
+                error:function(response){
+                    document.getElementById("ee").style.display='block';
+                }
+            })
+        });
+
+        $("#0").on("click",function(){
+            var name=document.getElementById("1").value;/*js原生取法*/
+            var age=$("#2").val();/*jquery取法*/
+            var sex=$("#3").val();
+            var tName=$("#4").val();
+            var tPassword=$("#5").val();
+            var email=$("#email").val();
+            var ccc=$("#ccc").val();
+            console.log(sex+"----"+name+"----"+age+";ccc==="+ccc)
+            if (ccc==cc){
+                $.ajax({
+                    url:"/teaReg2",
+                    data:{
+                        trealName:name,
+                        age:age,
+                        sex:sex,
+                        tName:tName,
+                        tPassword:tPassword,
+                        temail:email
+                    },
+                    dataType:'json',
+                    type:'post',
+                    success:function(response){
+                        if(response.code==200){
+                            console.log("成了！");
+                            location.href='/login';
+                        }else {
+                            ee.style.display='block';
+                            console.log("??????")
+                        }
+                    },
+                    error:function(response){
+                        document.getElementById("ee").style.display='block';
+                    }
+                })
+            }else {
+                alert("您输入的验证码有误！")
+            }
+
+        });
+    });
+
+</script>
+</html>

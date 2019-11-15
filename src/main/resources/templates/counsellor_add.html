@@ -1,0 +1,54 @@
+
+<div>
+    <form id="ff" method="post">
+        姓名：<input type="text" name="trealName"/><br/>
+        用户名：<input type="text" name="tName"/><br/>
+        密码：<input type="password" name="tPassword"/><br/>
+        年龄：<input type="text" name="age"/><br/>
+        性别：<input type="text" name="sex"/><br/>
+        科目：<input type="text" name="subjectName"/><br/>
+        毕业学校：<input type="text" name="school"/><br/>
+        专业：<input type="text" name="profession"/><br/>
+        状态：<select id="class8" class="easyui-combobox" name="status" style="width:100px;">
+            <option value="1">正常</option>
+            <option value="2">请假</option>
+            <option value="3">离职</option>
+        </select><br/>
+        简介：<input type="text" name="produce"/><br/>
+        照片：<input class="easyui-filebox" name="teacherImg" style="width:300px"><br/>
+       <!-- 照片：<input type="text" name="teacherImg" id="img" /><br/>-->
+        职位：<select  class="easyui-combobox" name="dept" style="width:100px;">
+            <option value="2">讲师</option>
+            <option value="3">导师</option>
+        </select><br/>
+        <input type="button" class="easyui-linkbutton" data-options="iconCls:'icon-save'" onclick="add()" value="添加"/>
+    </form>
+</div>
+<script type="text/javascript">
+
+    function add(){
+        console.log("dddd")
+
+        $.messager.progress();	// 显示进度条
+
+        $.ajax({
+            type:"post",
+            url:"teachers",
+            dataType:"json",
+            data:$("#ff").serialize(),
+            success:function (data) {
+                $.messager.alert("提示","成功了",'info')
+                $.messager.progress('close');
+            },
+            error:function (error) {
+                console.log(error)
+                $.messager.progress('close');
+            }
+        })
+    }
+
+    function showImage() {
+
+    }
+
+</script>

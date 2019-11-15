@@ -1,0 +1,57 @@
+html, body, div, h1, h2, h3, h4, h5, h6, ul, ol, dl, li, dt, dd, p, blockquote,
+pre, form, fieldset, table, th, td {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-size: 14px;
+    font-family: arial, helvetica, clean, sans-serif;
+    line-height: 1.3em;
+    text-align: center;
+    color: #333333;
+}
+
+a, a:visited {
+    outline: none;
+}
+
+.clear {
+    clear: both;
+}
+
+#wrapper {
+    width: 650px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.infoWrapper {
+    clear: both;
+    margin-top: 10px;
+}
+
+.infoTitle {
+    color: #808080;
+    float: left;
+    width: 230px;
+    text-align: right;
+    margin-right: 5px;
+}
+
+.infoContent {
+    padding-left: 130px;
+    text-align: left;
+}
+
+label {
+    cursor: pointer;
+}
+
+.long {
+    width: 250px;
+}
+
+.short {
+    height: 50px;
+}

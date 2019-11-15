@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--用EASYUI的组件-->
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--easyui项目绑定完成-->
+    <!--"stylesheet——样式表 ，herf里面存放内容（默认）-->
+    <link rel="stylesheet" href="js/jquery-easyui-1.5/themes/default/easyui.css"/>
+    <!--icon里面放的是要用到的图标-->
+    <link rel="stylesheet" href="js/jquery-easyui-1.5/themes/icon.css"/>
+
+</head>
+<body  class="easyui-layout"><!--与页面同大小，easyui-layout-->
+    <!--设置属性
+    <div id="demo1" class="esayui=calendar"></div>-->
+    <!--split:false   不可分割的-->
+    <div data-options="region:'north',split:false" style="height:100px; text-align:center ;background-color: #99cdff"><h1><b>教&nbsp;&nbsp;育&nbsp;&nbsp;后&nbsp;&nbsp;台&nbsp;&nbsp;管&nbsp;&nbsp;理&nbsp;&nbsp;系&nbsp;&nbsp;统&nbsp;&nbsp;界&nbsp;&nbsp;面</b></h1></div>
+        <!--text-align:center   居中-->
+    <div data-options="region:'south'"style="height:30px; text-align:center" ><b>请您大胆操作后台，删除请随意，感谢您的配合</b></div>
+
+    <div data-options="region:'west',title:'后台管理状态栏',split:true" style="width:280px">
+
+        <div id="aa" class="easyui-accordion" data-options="fit:true"><!--data是父亲容器 _data-options="fit:true-->
+
+            <div title="教师管理" data-options="iconCls:'icon-save'" ,style="overflow:auto;  padding:15px;,selected:true">
+                <ul>
+                    <li>
+                        <span><b>辅导员</b></span>
+                        <ul id="view1" class="easyui-tree my" >
+                            <li data-options="attributes:{'url':'teacher_list'}"><span>辅导员信息查询</span></li><!--attributes 属性，里面是url-->
+                            <li data-options="attributes:{'url':'teacher_add'}"><span>辅导员信息增加</span></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <span><b>讲师</b></span>
+                        <ul id="view11" class="easyui-tree my" >
+                            <li data-options="attributes:{'url':'teacher_list'}"><span>讲师信息查询</span></li><!--attributes 属性，里面是url-->
+                            <li data-options="attributes:{'url':'teacher_add'}"><span>讲师信息增加</span></li></ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div title="学生管理" data-options="iconCls:'icon-cut'" style="padding:15px;">
+                <ul id="view2" class="easyui-tree my" >
+                    <li data-options="attributes:{'url':'student_list'}"><span>学生查询</span></li>
+                    <li data-options="attributes:{'url':'student_add'}"><span>学生增加</span></li>
+                    <li data-options="attributes:{'url':'student_update'}"><span>学生修改</span></li>
+                    <li data-options="attributes:{'url':'student_delete'}"><span>学生删除</span></li>
+                </ul>
+            </div>
+
+            <div title="课程管理" data-options="iconCls:'icon-reload'" style="padding:15px;">
+                <ul id="view3" class="easyui-tree my">
+                    <li data-options="attributes:{'url':'subject_list'}"><span>课程查询</span></li>
+                    <li data-options="attributes:{'url':'subject_add'}"><span>课程增加</span></li>
+                    <li data-options="attributes:{'url':'subject_update'}"><span>课程修改</span></li>
+                    <li data-options="attributes:{'url':'subject_delete'}"><span>课程删除</span></li>
+                </ul>
+            </div>
+
+            <div title="班级管理" data-options="iconCls:'icon-ok'" style="padding:15px;">
+                <ul id="view4" class="easyui-tree my">
+                    <li data-options="attributes:{'url':'class_list'}"><span>班级查询</span></li>
+                    <li data-options="attributes:{'url':'class_add'}"><span>班级增加</span></li>
+                    <li data-options="attributes:{'url':'class_update'}"><span>班级修改</span></li>
+                    <li data-options="attributes:{'url':'class_delete'}"><span>班级删除</span></li>
+                </ul>
+            </div>
+
+            <div title="年级管理" data-options="iconCls:'icon-ok'" style="padding:15px;">
+                <ul id="view5" class="easyui-tree my">
+                    <li data-options="attributes:{'url':'grade_list'}"><span>年级查询</span></li>
+                    <li data-options="attributes:{'url':'grade_add'}"><span>年级增加</span></li>
+                    <li data-options="attributes:{'url':'grade_update'}"><span>年级修改</span></li>
+                    <li data-options="attributes:{'url':'grade_delete'}"><span>年级删除</span></li>
+                </ul>
+            </div>
+
+            <div title="角色管理" data-options="iconCls:'icon-ok'" style="padding:15px;">
+                <ul id="view6" class="easyui-tree my">
+                    <li data-options="attributes:{'url':'role_list'}"><span>角色查询</span></li>
+                    <li data-options="attributes:{'url':'role_add'}"><span>角色增加</span></li>
+                    <li data-options="attributes:{'url':'role_update'}"><span>角色修改</span></li>
+                    <li data-options="attributes:{'url':'role_delete'}"><span>角色删除</span></li>
+                </ul>
+            </div>
+
+            <div title="Cart管理" data-options="iconCls:'icon-ok'" style="padding:15px;">
+                <ul id="view7" class="easyui-tree my">
+                    <li data-options="attributes:{'url':'cart_list'}"><span>Cart查询</span></li>
+                    <li data-options="attributes:{'url':'cart_add'}"><span>Cart增加</span></li>
+                    <li data-options="attributes:{'url':'cart_update'}"><span>Cart修改</span></li>
+                    <li data-options="attributes:{'url':'cart_delete'}"><span>Cart删除</span></li>
+                </ul>
+            </div>
+
+        </div>
+
+    </div>
+    <div data-options="region:'center'" style="padding:5px;background:#eee;">
+        <div id="tt2" class="easyui-tabs" data-options="fit:true">
+            <div title="Welcome Page" style="padding:20px;display:none;" data-options="fit:true" >
+                <img src="page/imgone_.jpg" height="510" width="1150"/></div>
+        </div>
+
+    </div>
+
+<!--导入-->
+    <!--这里顺序不能颠倒-->
+<script src="js/EasyUI/jquery.min.js" type="text/javascript"></script>
+<!--2导入easyUI-->
+<script src="js/EasyUI/jquery.easyui.min.js" type="text/javascript"></script>
+<!--3导入支持的语言库-->
+<script src="js/EasyUI/locale/easyui-lang-zh_CN.js" type="text/javascript"></script>
+<!--<script>
+    $("#demo2").calendar({
+        firstDay:1,
+        current:new Date(2019,10.2)
+    });
+</script>-->
+<!--组件和组件之间用方法和行为通信-->
+<script>
+    $('.my').tree({   /*这里是一个点击事件   类选择器*/
+        onClick: function(node){
+ /*           alert(node.text);  // 在用户点击的时候提示*/
+
+            console.log(node);//打印这个节点
+            /*纯粹的JS    用AJAX与后来连接*/
+            /*判断这个页面是否已经存在，tabs执行他的函数——就找到他的页面了*/
+            var tt2 = $("#tt2").tabs('getTab',node.text)
+            if (tt2) {
+                /*对其进行遍历，如果存在执行他 tabs函数*/
+                $("#tt2").tabs('select',node.text)
+            }else {
+                /*选项卡不存在，执行程序添加*/
+                $("#tt2").tabs('add',{
+                    /*生成新的页面*/
+                    title: node.text,
+                    /*定义是否显示关闭按钮，ture是开启*/
+                    closable: true,
+                    href: node.attributes.url
+                });
+            }
+
+        }
+    });
+
+
+</script>
+</body>
+</html>

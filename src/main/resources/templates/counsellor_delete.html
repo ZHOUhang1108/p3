@@ -1,0 +1,23 @@
+
+<table class="easyui-datagrid"
+       data-options="url:'counsellor/delete',pagination:true,fitColumns:true,singleSelect:false,fit:true">
+    <thead>
+    <tr>
+        <th data-options="field:'id',checkbox:true,width:100"></th>
+        <th data-options="field:'id',width:100">编号</th>
+        <th data-options="field:'name',width:100">姓名</th>
+        <th data-options="field:'age',width:100">年龄</th>
+        <th data-options="field:'sex',width:100">性别</th>
+        <th data-options="field:'subject',width:100">科目</th>
+        <th data-options="field:'school',width:100">学校</th>
+        <th data-options="field:'professional',width:100">专业</th>
+        <th data-options="field:'status',width:100">身份</th>
+    </tr>
+    </thead>
+    <div id="tb">
+        <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'" onclick="counsellorAdd()">新增</a>
+        <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit'" onclick="counsellorUpdate()">修改</a>
+        <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-cut'" onclick="counsellorDelete()">删除</a>
+    </div>
+</table>
+>

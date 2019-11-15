@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>选课中心</title>
+<link rel="icon" href="/public/images/favicon_xue.ico" type="image/x-icon">
+<link type="text/css" rel="stylesheet" href="//cdn-cnc.17xueba.com/s17/xue/student/public/css/pc-320f27f8e6.css" />
+
+	<script src="js/jquery-3.3.1.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/axios-0.18.0.js" type="text/javascript" charset="utf-8"></script>
+<script>Vue.config.productionTip=false</script>
+<style type="text/css">
+
+</style>
+</head>
+<body class="">
+	<!-- 顶部导航栏 -->
+	<div class="xue-school-nav-wrapper white" id="bar">
+		<div class="header-nav clearfix">
+			<div class="logo fl">
+				<a href="/" title="一起学网校">
+					<img title="一起学网校" style="width: 250px" src="images/logoplus.png"/>
+					<img title="一起学网校" class="logo_img nofixed" src="//cdn-cnc.17xueba.com/s17/xue/student/public/images/pc/newIndex/pc_xue_logo_new_2.png" />
+				</a>
+			</div>
+			<div class="nav-cont clearfix fr">
+				<ul class="nav-box fl clearfix">
+					<li class="nav-list fl " @click="toIndex">
+						<a class="txt">首页</a>
+					</li>
+					<li class="nav-list fl  on">
+						<a class="txt" href="#" >选课中心</a>
+					</li>
+					<li class="nav-list fl" @click="myLessons">
+						<span class="txt">我的课程</span>
+					</li>
+					<li class="nav-list fl"@click="aboutUs">
+						<span class="txt" >关于我们</span>
+					</li>
+					<li class="nav-list fl" @click="downLoad">
+						<a class="txt">客户端下载</a>
+					</li>
+					<li class="nav-list fl"style="display: none;">
+						<span class="txt switch">切换孩子</span>
+					</li>
+				</ul>
+				<div class="login-box fl">
+					<span class="item login "  @click="login">登录</span><span class="item "  @click="register">注册</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+	<!-- 大的轮播图 -->
+	<div class="center-header">
+	    <div class="header-inside">
+			<img src="images/logo.png"style="width: 400px;float: left;position: relative;left: -170px;top: 50px;" />
+	        <div class="header-right">
+				<img title="一起学网校" style="width: 580px;position: relative;left: -100px;" src="images/logoplus.png"/>
+	            <a class="check-link" href="/teacherlist.vpage" target="_blank" onclick="toTeacherList()" >查看教师资格证</a>
+	        </div>
+	    </div>
+	</div>
+	<!-- 下方的课程筛选+课程展示 -->
+	<div class="center-content" id="mm">
+		<!-- 筛选按钮 -->
+		<div class="sel-grade">
+            <ul class="grade-ul">
+				<li class="item" v-for="grade in list.grades" @click="grades(grade.gradeId)">{{grade.gradeName}}</li>
+			</ul>
+        </div>
+
+        <div style="clear:both"></div>
+
+        <div class="sel-subject">
+            <ul class="subject-ul">
+                            <li class="item on" @click="allSubjects"><a href="#" style="color:#fff" >全部</a></li>
+                            
+							<li class="item" @click="subjects(subject.subjectId)" v-for="subject in list.subjects">{{subject.subjectName}}</li>
+            </ul>
+        </div>
+
+        <div style="clear:both"></div><!-- div之间的空行 -->
+		<div class="center-list">
+		    <ul class="course-box">
+				<li class="course-item" v-for="lesson in list.lessonResults" @click="lessondetail(lesson.lessonId)">
+				    <a href="/icourse/course/detail.vpage?channelId=58&courseId=3571" >
+				    <div class="item-section">
+				        <div class="item-title-box">
+				            <span class="item-orange-tag"><!-- 课程科目 -->{{lesson.subjectName}}
+				            </span>
+				            <span class="item-title">{{lesson.lessonName}}</span><!-- 课程名称 -->
+				        </div>
+				        <div class="item-time">
+				            <span>【{{lesson.gradeName}}-{{lesson.subjectName}}】{{lesson.lessonDetail}}</span><!-- 课程特点 -->
+				        </div>
+				        <div class="item-foot">
+				            <div class="item-newPrice-box">
+				                <div class="item-new-price">
+				                        <div class="item-real">¥ <span>{{lesson.price}}</span></div><!-- 课程售价 -->
+				                        <div class="item-original">原价：¥ <span>{{lesson.price*10}}</span></div><!-- 课程划线价 -->
+				                </div>
+				            </div>
+				            <div class="item-preson clearfix">
+				                <dl>
+			                        <div class="person-box">
+			                            <dd>
+				                        <img class="" style="" src="images/LiuDeHua.png" title="一起学网校">
+				                        </dd>
+				                        <p class="t-name">{{lesson.crealName}}</p>
+				                    </div>
+				                    <div class="person-box">
+				                        <dd>
+				                        <img class="" style="" src="images/XingZai.jpg" title="一起学网校">
+				                        </dd>
+				                        <p class="t-name">{{lesson.trealName}}</p>
+				                    </div>
+				                    <div class="person-box">
+				                        <dd>
+				                        <img class="" style="" src="images/FaGe.jpg" title="一起学网校">
+				                        </dd>
+				                        <p class="t-name">发哥</p>
+				                    </div>
+				                </dl>
+				            </div>
+				        </div>
+				    </div>
+				    </a>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+
+
+
+<div data-options="region:'north',split:false" style="height:100px;"></div>
+</body>
+
+
+<script type="text/javascript">
+	var vm1=new Vue({
+		el:"#mm",
+		data:{
+			entity:{
+				// gradeId:0
+			},
+			list:{
+				lessonResults:[],
+				grades:[],
+				subjects:[]
+			},
+			gradetag:null,
+			subjecttag:null
+		},
+		mounted() {
+			this.init();
+		},
+		methods:{
+			init(){
+				var getUrl='http://localhost:8080/cc/lessons';
+				var _this=this;
+				var per={pp:1}
+				axios.get(getUrl,{params:per}).then(function(response){
+					var da=response.data;
+					_this.list.lessonResults=da.lessonResults;
+					_this.list.grades=da.grades;
+					_this.list.subjects=da.subjects;
+				});
+			},
+			grades:function(i){
+				var getUrl='http://localhost:8080/cc/lessonByGradeId';
+				var _this=this;
+				var per={gradeId:i}
+				axios.get(getUrl,{params:per}).then(function(response){
+					var da=response.data;
+					_this.list.lessonResults=da;
+					console.log(response)
+					console.log("da2====="+da)
+					_this.gradetag=i;/* 将当前的gradeId上传到标记位置 */
+				});
+			},
+			allSubjects:function(){
+				
+			},
+			subjects:function(i){
+				var getUrl='http://localhost:8080/cc/selectLessonByGS';
+				var _this=this;
+				var per={subjectId:i,gradeId:_this.gradetag};
+				console.log("subjectId==="+i)
+				axios.get(getUrl,{params:per}).then(function(response){
+					var da=response.data;
+					_this.list.lessonResults=da;
+					console.log(response)
+					console.log("da2====="+da)
+					_this.subjecttag=i;/* 将当前的gradeId上传到标记位置 */
+				});
+			},
+			lessondetail:function(){
+			}
+			
+		}
+		
+	});
+	var vm2=new Vue({
+		el:"#bar",
+		data:{
+			aa:null
+			
+		},
+		methods:{
+			login:function() {
+				location.href='/login'
+			},
+			register:function(){
+				location.href='/stu'
+			},
+			toIndex:function(){
+				var getUrl='http://localhost:8080/cc/index';
+				var _this=this;
+				var per={};
+				axios.get(getUrl,{params:per}).then(function(response){
+					var da=response.data;
+					_this.aa=sessionStorage.getItem("test")
+					// window.open("LT_index.html")
+				});
+			},
+			myLessons:function(){
+				
+			},
+			aboutUs:function(){
+				
+			},
+			downLoad:function(){
+				
+			}
+		}
+	});
+</script>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>aaa</title>
+    <script src="js/style1.js" type="text/javascript" charset="utf-8"></script>
+    <link rel="stylesheet" href="css/style1.css">
+</head>
+<body>
+<h1>test</h1>
+<div id="slideBar"></div>
+<script type="text/javascript">
+    var dataList = ["0","1"];
+    var options = {
+        dataList: dataList,
+        success:function(){
+            console.log("show");
+        },
+        fail: function(){
+            console.log("fail");
+        }
+    };
+    SliderBar("slideBar", options);
+</script>
+</body>
+</html>

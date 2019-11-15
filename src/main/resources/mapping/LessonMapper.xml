@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="p3.mapper.LessonMapper">
+    <select id="selectAll" resultType="p3.vo.LessonResult">
+        select
+        l1.lessonId,l1.lessonName,s1.subjectName,g1.gradeName,t1.trealName,l1.price,l1.studentNum,l1.lessonDetail,l1.startTime,l1.closeTime
+        from
+        lesson l1,teacher t1,subject s1,grade g1
+        where
+        l1.subjectId=s1.subjectId
+        and l1.gradeId=g1.gradeId
+        and l1.teacherId=t1.teacherId
+    </select>
+
+    <select id="selectLessonByGradeId" resultType="p3.vo.LessonResult">
+        select
+        l1.lessonId,l1.lessonName,s1.subjectName,g1.gradeName,t1.trealName,l1.price,l1.studentNum,l1.lessonDetail,l1.startTime,l1.closeTime
+        from
+        lesson l1,teacher t1,subject s1,grade g1
+        where
+        l1.gradeId=#{gradeId}
+        and g1.gradeId=#{gradeId}
+        and l1.teacherId=t1.teacherId
+        and l1.subjectId=s1.subjectId
+    </select>
+    <select id="selectLessonByGS" resultType="p3.vo.LessonResult">
+        select
+        l1.lessonId,l1.lessonName,s1.subjectName,g1.gradeName,t1.trealName,l1.price,l1.studentNum,l1.lessonDetail,l1.startTime,l1.closeTime
+        from
+        lesson l1,teacher t1,subject s1,grade g1
+        where
+        l1.gradeId=#{gradeId}
+        and g1.gradeId=#{gradeId}
+        and l1.subjectId=#{subjectId}
+        and s1.subjectId=#{subjectId}
+        and l1.teacherId=t1.teacherId
+    </select>
+
+    <resultMap id="lessonMap" type="lesson">
+        <id column="lessonId" property="lessonId"></id>
+        <result column="lessonName" property="lessonName"></result>
+        <result column="teacherId" property="teacherId"></result>
+        <result column="counsellorId" property="counsellorId"></result>
+        <result column="subjectId" property="subjectId"></result>
+        <result column="startTime" property="startTime"></result>
+        <result column="closeTime" property="closeTime"></result>
+        <result column="lessonDetall" property="lessonDetall"></result>
+        <result column="gradeId" property="gradeId"></result>
+        <result column="studentNum" property="studentNum"></result>
+        <result column="price" property="price"></result>
+        <result column="lessonImg" property="lessonImg"></result>
+    </resultMap>
+
+    <sql id="lessonColumns">
+        lessonId lessonId,
+        teacherId teacherId,
+        counsellorId counsellorId,
+        subjectId subjectId,
+        startTime startTime,
+        closeTime closeTime,
+        lessonDetall lessonDetall,
+        gradeId gradeId,
+        studentNum studentNum,
+        price price,
+        lessonImg lessonImg
+    </sql>
+
+    <!--查询所有课程信息-->
+   <!-- <select id="selectAll" resultMap="lessonMap">
+         SELECT
+        l.lessonName,
+        t.trealName,
+        c.crealName,
+        s.subjectName,
+        l.startTime,
+        l.closeTime,
+        l.lessonDetall,
+        g.gradeName,
+        l.lessonImg,
+        l.studentNum,
+        l.price
+    FROM
+        lesson l,
+        teacher t,
+        counsellor c,
+        grade g,
+        subject s
+
+    WHERE
+        l.teacherId = t.teacherId
+        AND l.counsellorId = c.counsellorId
+        AND l.gradeId = g.gradeId
+        AND l.subjectId = s.subjectId
+    </select>-->
+
+    <!--通过lessonName查询课程信息-->
+    <select id="selectByName" resultMap="lessonMap">
+        SELECT
+        l.lessonName,
+        t.trealName,
+        c.crealName,
+        s.subjectName,
+        l.startTime,
+        l.closeTime,
+        l.lessonDetall,
+        g.gradeName,
+        l.lessonImg,
+        l.studentNum,
+        l.price
+    FROM
+        lesson l,
+        teacher t,
+        counsellor c,
+        grade g,
+        subject s
+
+    WHERE
+        l.teacherId = t.teacherId
+        AND l.counsellorId = c.counsellorId
+        AND l.gradeId = g.gradeId
+        AND l.subjectId = s.subjectId
+        AND l.lessonName = #{lessonName}
+    </select>
+
+    <!--通过lessonId查询课程信息-->
+    <select id="selectById" resultMap="lessonMap">
+        SELECT
+        l.lessonName,
+        t.trealName,
+        c.crealName,
+        s.subjectName,
+        l.startTime,
+        l.closeTime,
+        l.lessonDetall,
+        g.gradeName,
+        l.lessonImg,
+        l.studentNum,
+        l.price
+    FROM
+        lesson l,
+        teacher t,
+        counsellor c,
+        grade g,
+        subject s
+
+    WHERE
+        l.teacherId = t.teacherId
+        AND l.counsellorId = c.counsellorId
+        AND l.gradeId = g.gradeId
+        AND l.subjectId = s.subjectId
+        AND l.lessonId = #{lessonId}
+    </select>
+
+    <!--删除课程-->
+    <delete id="deleteLesson">
+        delete from lesson where lessonId=#{lessonId}
+    </delete>
+
+
+
+
+    <!--通过讲师姓名查询讲师Id-->
+    <select id="selectTeacherIdByName" parameterType="p3.vo.Lesson1" resultType="Integer">
+        select teacherId from teacher where trealName=#{trealName}
+    </select>
+
+
+
+    <!--通过导师姓名查询导师Id-->
+    <select id="selectCounsellorIdByName" parameterType="p3.vo.Lesson1" resultType="Integer">
+        select counsellorId from counsellor where crealName=#{crealName}
+    </select>
+
+
+
+    <!--通过年级名字查询年级Id-->
+    <select id="selectGradeIdByName" parameterType="p3.vo.Lesson1" resultType="Integer">
+        select gradeId from grade where gradeName=#{gradeName}
+    </select>
+
+
+
+    <!--通过科目名称查询科目ID-->
+    <select id="selectSubjectIdByName" parameterType="p3.vo.Lesson1" resultType="Integer">
+        select subjectId from subject where subjectName=#{subjectName}
+    </select>
+
+    <!--增加新的课程-->
+    <insert id="addLesson" parameterType="lesson">
+        insert into lesson(lessonName,teacherId,counsellorId,subjectId,startTime,closeTime,lessonDetall,gradeId,studentNum,price,lessonImg)
+         values (#{lessonName},#{teacherId},#{counsellorId},#{subjectId},#{startTime},#{closeTime},#{lessonDetall},#{gradeId},
+         #{studentNum},#{price},#{lessonImg})
+    </insert>
+
+    <!--修改课程信息-->
+    <update id="updateLesson" parameterType="lesson">
+        update lesson
+        <set>
+            <if test="lessonName!=null">
+                lessonName=#{lessonName},
+            </if>
+            <if test="teacherId!=null">
+                teacherId=#{teacherId},
+            </if>
+            <if test="counsellorId!=null">
+                counsellorId=#{counsellorId},
+            </if>
+            <if test="subjectId!=null">
+                subjectId=#{subjectId},
+            </if>
+            <if test="startTime!=null">
+                startTime=#{startTime},
+            </if>
+            <if test="closeTime!=null">
+                closeTime=#{closeTime},
+            </if>
+            <if test="lessonDetall!=null">
+                lessonDetall=#{lessonDetall},
+            </if>
+            <if test="gradeId!=null">
+                gradeId=#{gradeId},
+            </if>
+            <if test="studentNum!=null">
+                studentNum=#{studentNum},
+            </if>
+            <if test="price!=Null">
+                price=#{price},
+            </if>
+            <if test="lessonImg!=null">
+                lessonImg=#{lessonImg}
+            </if>
+        </set>
+        where
+        lessonId=#{lessonId}
+    </update>
+
+    <!--模糊查询课程信息-->
+    <select id="selectLessonByParms" resultMap="lessonMap">
+        <if test="lessonName!=null">
+            <bind name="lessonName" value="'%'+lessonName+'%'"/>
+        </if>
+        <if test="lessonName!=null">
+            <bind name="trealName" value="'%'+lessonName+'%'"/>
+        </if>
+        <if test="lessonName!=null">
+            <bind name="crealName" value="'%'+lessonName+'%'"/>
+        </if>
+        <if test="lessonName!=null">
+            <bind name="subjectName" value="'%'+lessonName+'%'"/>
+        </if>
+        <if test="lessonName!=null">
+            <bind name="startTime" value="'%'+lessonName+'%'"/>
+        </if>
+        <if test="lessonName!=null">
+            <bind name="closeTime" value="'%'+lessonName+'%'"/>
+        </if>
+        <if test="lessonName!=null">
+            <bind name="lessonDetall" value="'%'+lessonName+'%'"/>
+        </if>
+        <if test="lessonName!=null">
+            <bind name="gradeName" value="'%'+lessonName+'%'"/>
+        </if>
+        <if test="lessonName!=null">
+            <bind name="lessonImg" value="'%'+lessonName+'%'"/>
+        </if>
+        <if test="lessonName!=null">
+            <bind name="studentNum" value="'%'+lessonName+'%'"/>
+        </if>
+        <if test="lessonName!=null">
+            <bind name="price" value="'%'+lessonName+'%'"/>
+        </if>
+        SELECT
+        l.lessonName, t.trealName,c.crealName,s.subjectName,l.startTime,l.closeTime,l.lessonDetall,g.gradeName,l.lessonImg, l.studentNum,l.price
+        FROM
+        lesson l,teacher t, counsellor c,grade g,subject s
+        WHERE
+        l.teacherId = t.teacherId
+        AND l.counsellorId = c.counsellorId
+        AND l.gradeId = g.gradeId
+        AND l.subjectId = s.subjectId
+        and
+        <trim suffixOverrides="or">
+            <if test="lessonName!=null">
+                l.lessonName like #{lessonName} or
+            </if>
+            <if test="trealName!=null">
+                t.trealName like #{trealName} or
+            </if>
+            <if test="crealName!=null">
+                c.crealName like #{crealName} or
+            </if>
+            <if test="subjectName!=null">
+                s.subjectName like #{subjectName} or
+            </if>
+            <if test="startTime!=null">
+                l.startTime like #{startTime} or
+            </if>
+            <if test="closeTime!=null">
+                l.closeTime like #{closeTime} or
+            </if>
+            <if test="lessonDetall!=null">
+                l.lessonDetall like #{lessonDetall} or
+            </if>
+            <if test="gradeName!=null">
+                g.gradeName like #{gradeName} or
+            </if>
+            <if test="lessonImg!=null">
+                l.lessonImg like #{lessonImg} or
+            </if>
+            <if test="studentNum!=null">
+                l.studentNum like #{studentNum} or
+            </if>
+            <if test="price!=null">
+                l.price like #{price}
+            </if>
+        </trim>
+    </select>
+
+    <!--批量删除课程信息-->
+    <delete id="deleteList">
+        delete from lesson where lessonId in
+        <foreach collection="list" open="(" separator="," close=")" item="ids">
+            #{ids}
+        </foreach>
+    </delete>
+
+    <select id="selectByTid" resultType="p3.vo.LessonResult">
+        select
+        *
+        from
+        lesson l1,teacher t1,subject s1,grade g1
+        where
+        l1.subjectId=s1.subjectId
+        and l1.gradeId=g1.gradeId
+        and l1.teacherId=t1.teacherId
+        and t1.teacherId=#{teacherId}
+    </select>
+
+</mapper>
